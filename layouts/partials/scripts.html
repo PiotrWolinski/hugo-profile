@@ -22,7 +22,7 @@
         document.body.classList.add('dark');
     } else if (localStorage.getItem("pref-theme") === "light") {
         document.body.classList.remove('dark')
-    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
         document.body.classList.add('dark');
     }
 
@@ -49,10 +49,12 @@
 </script>
 {{- end }}
 
-{{ if not (.Site.Params.navbar.disableSearch | default false) }}
-    <script src="{{ .Site.Params.staticPath }}/js/search.js"></script>
-{{ end }}
+<script>
+    let loadingIcons;
 
+    function loading() {
+        myVar = setTimeout(showPage, 100);
+    }
 
 {{ if or (.Params.mathjax | default false) (.Site.Params.mathjax) }}
 
@@ -92,3 +94,9 @@
 {{ if (.Site.Params.customScripts | default false) }}
 {{ .Site.Params.customScripts | safeHTML }}
 {{ end }}
+    function showPage() {
+        try{
+            document.getElementById("loading-icons").style.display = "block";
+        } catch(err) {}
+    }
+</script>
